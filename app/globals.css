@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body { @apply bg-dark-bg text-white antialiased; }
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: #0a0a0a; }
+  ::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #c8f500; }
+}
+
+@layer components {
+  .btn-neon {
+    @apply bg-neon text-black font-semibold px-5 py-2.5 rounded-lg hover:bg-neon-dark transition-all duration-200 inline-flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-outline {
+    @apply border border-neon/50 text-neon font-medium px-5 py-2.5 rounded-lg hover:border-neon hover:bg-neon/5 transition-all duration-200 inline-flex items-center gap-2;
+  }
+  .btn-ghost {
+    @apply border border-dark-border2 text-gray-400 font-medium px-5 py-2.5 rounded-lg hover:border-gray-600 hover:text-white transition-all duration-200 inline-flex items-center gap-2;
+  }
+  .card { @apply bg-dark-card border border-dark-border rounded-xl overflow-hidden; }
+  .input {
+    @apply w-full bg-dark-card2 border border-dark-border2 rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-neon/60 transition-colors text-sm;
+  }
+  .label { @apply block text-sm font-medium text-gray-400 mb-1.5; }
+  .badge-neon { @apply bg-neon/10 text-neon text-xs font-semibold px-2 py-0.5 rounded; }
+  .badge-gray { @apply bg-white/5 text-gray-400 text-xs font-medium px-2 py-0.5 rounded; }
+  .section { @apply py-16 md:py-24; }
+  .container { @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
+  .table-row { @apply border-b border-dark-border hover:bg-dark-card2 transition-colors; }
+}
+
+/* ── Glassmorphism utilities ────────────────────────────────────────── */
+.glass-dark {
+  background: rgba(17, 17, 17, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.glass-card {
+  background: rgba(17, 17, 17, 0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-neon {
+  background: rgba(200, 245, 0, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(200, 245, 0, 0.12);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(200, 245, 0, 0.04) inset;
+}
+
+/* ── Neon glow keyframes ────────────────────────────────────────────── */
+@keyframes neonPulse {
+  0%, 100% {
+    box-shadow: 0 0 12px rgba(200, 245, 0, 0.08), 0 0 30px rgba(200, 245, 0, 0.03);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(200, 245, 0, 0.16), 0 0 50px rgba(200, 245, 0, 0.06);
+  }
+}
+
+.neon-glow-pulse {
+  animation: neonPulse 4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
