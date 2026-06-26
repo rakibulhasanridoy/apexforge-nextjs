@@ -1,5 +1,5 @@
 'use client'
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState, useCallback } from 'react'
 import { useSession } from '@/lib/auth'
 import axiosSecure from '@/lib/axios'
 
@@ -10,22 +10,31 @@ export default function AuthProvider({ children }) {
   const [userProfile, setUserProfile] = useState(null)
   const [profileLoading, setProfileLoading] = useState(true)
 
+
+  
+  const fetchProfile = useCallback(async () => {
+    try {
+      const res = await axiosSecure.post('/api/jwt/token')
+      setUserProfile(res.data.user)
+    } catch (err) {
+      console.error('Profile fetch error:', err?.response?.data || err.message)
+      setUserProfile(null)
+    } finally {
+      setProfileLoading(false)
+    }
+  }, [])
+
   useEffect(() => {
     if (session?.user) {
-      axiosSecure.post('/api/jwt/token')
-        .then(res => { setUserProfile(res.data.user); setProfileLoading(false) })
-        .catch(() => { setUserProfile(null); setProfileLoading(false) })
+      fetchProfile()
     } else if (!isPending) {
       setUserProfile(null)
       setProfileLoading(false)
     }
-  }, [session, isPending])
+  }, [session, isPending, fetchProfile])
 
   const refreshProfile = async () => {
-    if (session?.user) {
-      const res = await axiosSecure.post('/api/jwt/token')
-      setUserProfile(res.data.user)
-    }
+    if (session?.user) await fetchProfile()
   }
 
   return (

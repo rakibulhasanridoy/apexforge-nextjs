@@ -5,14 +5,19 @@ const nextConfig = {
       { protocol: 'https', hostname: '**' },
       { protocol: 'http', hostname: '**' },
     ],
-    domains: [
-      'lh3.googleusercontent.com',
-      'lh4.googleusercontent.com', 
-      'lh5.googleusercontent.com',
-      'lh6.googleusercontent.com',
-      'i.ibb.co',
-      'ibb.co',
-    ],
+  },
+  
+
+  
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          { key: 'Access-Control-Allow-Credentials', value: 'true' },
+        ],
+      },
+    ]
   },
 }
 export default nextConfig
