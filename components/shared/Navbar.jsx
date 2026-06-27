@@ -2,7 +2,7 @@
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { Menu, X, Zap, Bell, ChevronDown, LogOut, LayoutDashboard } from 'lucide-react'
+import { Menu, X, Zap, Bell, ChevronDown, LogOut, LayoutDashboard, Loader2 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAuth } from '@/providers/AuthProvider'
 import { signOut } from '@/lib/auth'
@@ -27,7 +27,7 @@ function NavItem({ href, label, end }) {
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [dropOpen, setDropOpen] = useState(false)
-  const { user, userProfile, isAuthenticated } = useAuth()
+  const { user, userProfile, isAuthenticated, loading } = useAuth()
   const router = useRouter()
   const dropRef = useRef(null)
 
@@ -44,6 +44,28 @@ export default function Navbar() {
     if (userProfile.role === 'admin') return '/dashboard/admin-overview'
     if (userProfile.role === 'trainer') return '/dashboard/trainer-overview'
     return '/dashboard/overview'
+  }
+
+  // Safe dashboard navigation — waits until the JWT cookie is ready.
+  // Without this guard, clicking Dashboard immediately after Google OAuth
+  // would redirect to /login because the JWT cookie isn't set yet.
+  const handleDashboardNav = (e) => {
+    e?.preventDefault()
+    setDropOpen(false)
+    setMenuOpen(false)
+    if (loading) {
+      toast.loading('Setting up your session...', { duration: 1500 })
+      // Retry once loading is done — poll every 100 ms for up to 3 s
+      const start = Date.now()
+      const wait = setInterval(() => {
+        if (!loading || Date.now() - start > 3000) {
+          clearInterval(wait)
+          router.push(dashboardLink())
+        }
+      }, 100)
+      return
+    }
+    router.push(dashboardLink())
   }
 
   const handleLogout = async () => {
@@ -128,13 +150,17 @@ export default function Navbar() {
                           </span>
                         )}
                       </div>
-                      <Link
-                        href={dashboardLink()}
-                        onClick={() => setDropOpen(false)}
-                        className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-400 hover:text-white hover:bg-white/5 transition-colors"
+                      {/* Dropdown Dashboard link */}
+                      <button
+                        onClick={handleDashboardNav}
+                        className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-gray-400 hover:text-white hover:bg-white/5 transition-colors"
                       >
-                        <LayoutDashboard className="w-4 h-4" /> Dashboard
-                      </Link>
+                        {loading
+                          ? <Loader2 className="w-4 h-4 animate-spin" />
+                          : <LayoutDashboard className="w-4 h-4" />
+                        }
+                        Dashboard
+                      </button>
                       <button
                         onClick={handleLogout}
                         className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-red-400 hover:text-red-300 hover:bg-red-500/5 transition-colors border-t border-white/5"
@@ -145,7 +171,15 @@ export default function Navbar() {
                   )}
                 </AnimatePresence>
               </div>
-              <Link href={dashboardLink()} className="btn-neon text-sm py-2">Dashboard</Link>
+
+              {/* Main Dashboard button */}
+              <button
+                onClick={handleDashboardNav}
+                className="btn-neon text-sm py-2 flex items-center gap-1.5"
+              >
+                {loading && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
+                Dashboard
+              </button>
             </>
           ) : (
             <Link href="/login" className="btn-neon text-sm py-2">Login</Link>
@@ -193,13 +227,14 @@ export default function Navbar() {
               ))}
               {isAuthenticated ? (
                 <>
-                  <Link
-                    href={dashboardLink()}
-                    onClick={() => setMenuOpen(false)}
-                    className="block px-4 py-2.5 text-sm text-neon hover:bg-neon/5 rounded-lg transition-colors"
+                  {/* Mobile Dashboard link */}
+                  <button
+                    onClick={handleDashboardNav}
+                    className="w-full text-left flex items-center gap-2 px-4 py-2.5 text-sm text-neon hover:bg-neon/5 rounded-lg transition-colors"
                   >
+                    {loading && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                     Dashboard
-                  </Link>
+                  </button>
                   <button
                     onClick={handleLogout}
                     className="block w-full text-left px-4 py-2.5 text-sm text-red-400 hover:bg-red-500/5 rounded-lg transition-colors"
