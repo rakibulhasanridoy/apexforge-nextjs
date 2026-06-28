@@ -6,6 +6,9 @@ import { Search, Filter, Clock, Users, ArrowRight, ChevronLeft, ChevronRight } f
 import axiosSecure from '@/lib/axios'
 import LoadingSpinner from '@/components/shared/LoadingSpinner'
 
+
+
+
 const CATEGORIES = ['All', 'Yoga', 'HIIT', 'Cardio', 'Strength', 'Pilates', 'CrossFit', 'Boxing', 'Swimming']
 
 export default function ClassesPage() {
@@ -13,14 +16,15 @@ export default function ClassesPage() {
   const [search, setSearch] = useState('')
   const [searchInput, setSearchInput] = useState('')
   const [category, setCategory] = useState('All')
-
   const { data, isLoading } = useQuery({
     queryKey: ['classes', page, search, category],
     queryFn: async () => (await axiosSecure.get('/api/classes', { params: { page, limit: 9, search, category } })).data,
   })
 
-  const handleSearch = (e) => { e.preventDefault(); setSearch(searchInput); setPage(1) }
 
+
+
+  const handleSearch = (e) => { e.preventDefault(); setSearch(searchInput); setPage(1) }
   return (
     <div className="min-h-screen bg-dark-bg">
       <div className="bg-dark-card border-b border-dark-border py-14">
@@ -35,14 +39,13 @@ export default function ClassesPage() {
             <form onSubmit={handleSearch} className="flex gap-2 flex-1">
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-                <input value={searchInput} onChange={e => setSearchInput(e.target.value)} className="input pl-10" placeholder="Search class names..." />
+              <input value={searchInput} onChange={e => setSearchInput(e.target.value)} className="input pl-10" placeholder="Search class names..." />
               </div>
               <button type="submit" className="btn-neon px-5">Search</button>
-            </form>
+          </form>
           </div>
-        </div>
+       </div>
       </div>
-
       <div className="container py-12">
         {isLoading ? <LoadingSpinner fullPage={false} /> : (
           <>
@@ -77,7 +80,6 @@ export default function ClassesPage() {
                 ))}
               </div>
             )}
-
             {data?.pages > 1 && (
               <div className="flex items-center justify-center gap-2 mt-12">
                 <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}
