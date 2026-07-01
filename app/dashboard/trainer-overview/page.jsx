@@ -47,8 +47,8 @@ function TrainerOverviewContent() {
                 <CartesianGrid strokeDasharray="3 3" stroke="#1a1a1a" />
                 <XAxis dataKey="name" tick={{ fill: '#6b7280', fontSize: 11 }} axisLine={false} tickLine={false} />
                 <YAxis tick={{ fill: '#6b7280', fontSize: 11 }} axisLine={false} tickLine={false} />
-                <Tooltip contentStyle={{ background: '#111', border: '1px solid #252525', borderRadius: '8px' }} labelStyle={{ color: '#fff' }} itemStyle={{ color: '#c8f500' }} />
-                <Bar dataKey="bookings" fill="#c8f500" radius={[4, 4, 0, 0]} />
+                <Tooltip contentStyle={{ background: '#111', border: '1px solid #252525', borderRadius: '8px' }} labelStyle={{ color: '#fff' }} itemStyle={{ color: '#E63946' }} />
+                <Bar dataKey="bookings" fill="#E63946" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           ) : <p className="text-gray-500 text-sm text-center py-10">No class data yet.</p>}

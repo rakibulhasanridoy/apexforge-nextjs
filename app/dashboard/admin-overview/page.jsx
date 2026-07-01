@@ -6,7 +6,7 @@ import axiosSecure from '@/lib/axios'
 import { useAuth } from '@/providers/AuthProvider'
 import RoleGuard from '@/components/dashboard/RoleGuard'
 
-const PIE_COLORS = ['#c8f500', '#3b82f6', '#a855f7']
+const PIE_COLORS = ['#E63946', '#3b82f6', '#a855f7']
 
 function StatCard({ icon, label, value, sub, colorClass = 'bg-neon/10 text-neon' }) {
   return (
@@ -55,12 +55,12 @@ function AdminOverviewContent() {
           {revenueData.length > 0 ? (
             <ResponsiveContainer width="100%" height={200}>
               <AreaChart data={revenueData}>
-                <defs><linearGradient id="rev" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#c8f500" stopOpacity={0.2} /><stop offset="95%" stopColor="#c8f500" stopOpacity={0} /></linearGradient></defs>
+                <defs><linearGradient id="rev" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#E63946" stopOpacity={0.2} /><stop offset="95%" stopColor="#E63946" stopOpacity={0} /></linearGradient></defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="#1a1a1a" />
                 <XAxis dataKey="name" tick={{ fill: '#6b7280', fontSize: 11 }} axisLine={false} tickLine={false} />
                 <YAxis tick={{ fill: '#6b7280', fontSize: 11 }} axisLine={false} tickLine={false} />
-                <Tooltip contentStyle={{ background: '#111', border: '1px solid #252525', borderRadius: '8px' }} labelStyle={{ color: '#fff' }} itemStyle={{ color: '#c8f500' }} />
-                <Area type="monotone" dataKey="revenue" stroke="#c8f500" strokeWidth={2} fill="url(#rev)" />
+                <Tooltip contentStyle={{ background: '#111', border: '1px solid #252525', borderRadius: '8px' }} labelStyle={{ color: '#fff' }} itemStyle={{ color: '#E63946' }} />
+                <Area type="monotone" dataKey="revenue" stroke="#E63946" strokeWidth={2} fill="url(#rev)" />
               </AreaChart>
             </ResponsiveContainer>
           ) : <p className="text-gray-500 text-sm text-center py-10">No transaction data yet.</p>}
