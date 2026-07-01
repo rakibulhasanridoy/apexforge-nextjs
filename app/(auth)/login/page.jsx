@@ -42,7 +42,8 @@ function LoginForm() {
         <img
           src="https://i.ibb.co.com/737z0kz/vecteezy-handsome-young-man-working-out-in-the-gym-bodybuilding-33504866.jpg"
           alt=""
-          className="absolute inset-0 w-full h-full object-cover object-center"
+          className="absolute inset-0 w-full h-full object-cover object-center scale-105"
+          style={{ filter: 'blur(3px)' }}
         />
         <div className="absolute inset-0 bg-black/70" />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/60" />
@@ -57,19 +58,19 @@ function LoginForm() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="relative z-10 mt-auto p-10 max-w-md"
+          className="relative z-10 my-auto px-12 py-10 max-w-xl"
         >
-          <p className="text-neon text-xs font-bold tracking-widest uppercase mb-3">Performance Redefined</p>
-          <h1 className="text-4xl font-black text-white leading-tight mb-4">
+          <p className="text-neon text-sm font-bold tracking-widest uppercase mb-4">Performance Redefined</p>
+          <h1 className="text-6xl xl:text-7xl font-black text-white leading-[0.95] mb-6">
             Forge your <span className="text-neon">peak</span>.
           </h1>
-          <p className="text-gray-400 text-sm leading-relaxed mb-8">
+          <p className="text-gray-300 text-base leading-relaxed mb-10 max-w-sm">
             Every rep, every session, every result — tracked and trained with the platform built for athletes who don't settle.
           </p>
-          <div className="flex items-center gap-8 pt-6 border-t border-white/10">
-            <div><p className="text-xl font-black text-white">12.4k</p><p className="text-[10px] text-gray-500 uppercase tracking-wider mt-0.5">Athletes</p></div>
-            <div><p className="text-xl font-black text-white">200+</p><p className="text-[10px] text-gray-500 uppercase tracking-wider mt-0.5">Trainers</p></div>
-            <div><p className="text-xl font-black text-white">98%</p><p className="text-[10px] text-gray-500 uppercase tracking-wider mt-0.5">Satisfaction</p></div>
+          <div className="flex items-center gap-10 pt-7 border-t border-white/10">
+            <div><p className="text-3xl font-black text-white">12.4k</p><p className="text-xs text-gray-500 uppercase tracking-wider mt-1">Athletes</p></div>
+            <div><p className="text-3xl font-black text-white">200+</p><p className="text-xs text-gray-500 uppercase tracking-wider mt-1">Trainers</p></div>
+            <div><p className="text-3xl font-black text-white">98%</p><p className="text-xs text-gray-500 uppercase tracking-wider mt-1">Satisfaction</p></div>
           </div>
         </motion.div>
       </div>
