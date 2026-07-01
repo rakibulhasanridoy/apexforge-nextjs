@@ -40,16 +40,17 @@ export default function WhyChooseUs() {
               transition={{ duration: 0.45, delay: i * 0.08 }}
               viewport={{ once: true }}
               whileHover={{ y: -6, scale: 1.015, transition: { duration: 0.2, ease: 'easeOut' } }}
-              className="p-6 rounded-xl glass-card hover:glass-neon transition-all duration-300 group cursor-default"
+              // shimmer-sweep 
+              className="relative p-6 rounded-xl glass-card hover:glass-neon transition-all duration-300 group cursor-default overflow-hidden shimmer-sweep"
             >
               <motion.div
                 whileHover={{ rotate: [0, -8, 8, 0], transition: { duration: 0.4 } }}
-                className="w-10 h-10 rounded-lg bg-neon/10 flex items-center justify-center text-neon mb-4 group-hover:bg-neon/20 transition-colors"
+                className="relative z-10 w-10 h-10 rounded-lg bg-neon/10 flex items-center justify-center text-neon mb-4 group-hover:bg-neon/20 transition-colors"
               >
                 {icon}
               </motion.div>
-              <h3 className="font-bold text-white mb-2">{title}</h3>
-              <p className="text-gray-500 text-sm leading-relaxed">{desc}</p>
+              <h3 className="relative z-10 font-bold text-white mb-2">{title}</h3>
+              <p className="relative z-10 text-gray-500 text-sm leading-relaxed">{desc}</p>
             </motion.div>
           ))}
         </div>
