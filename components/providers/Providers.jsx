@@ -17,7 +17,7 @@ export default function Providers({ children }) {
           position="top-right"
           toastOptions={{
             style: { background: '#111', color: '#fff', border: '1px solid #252525', fontSize: '14px' },
-            success: { iconTheme: { primary: '#c8f500', secondary: '#000' } },
+            success: { iconTheme: { primary: '#E63946', secondary: '#fff' } },
             error: { iconTheme: { primary: '#ef4444', secondary: '#fff' } },
           }}
         />
